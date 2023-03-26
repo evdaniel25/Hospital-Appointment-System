@@ -1,5 +1,6 @@
 # import tkinter
 import tkinter
+from tkinter import messagebox
 import customtkinter
 import sqlite3
 with sqlite3.connect('details.db') as db:
@@ -10,6 +11,12 @@ root = tkinter.Tk()
 root.geometry('1920x1080')
 root.title('Hospital Appointment System')
 root.config(background='#f8c3e0')
+
+# function defn
+def submit_function():
+    cursor.execute('''INSERT INTO Appointment(name,age,gender,doctor) VALUES (?,?,?,?)''',(name_entry.get(),age_entry.get(),gender_entry.get(),doctor_entry.get()))
+    db.commit()
+    messagebox.showinfo('Success','Entry Added')
 
 # widget defn
 label_heading = tkinter.Label(root,text='Register',font=('Pacifico',35,'bold'))
@@ -47,7 +54,7 @@ doctor = ['Dr.Leena','Dr.Athira','Dr. Sayanora','Dr.Dejena','Dr.Chaithanya']
 doctor_entry= customtkinter.CTkComboBox(root,values=doctor)
 doctor_entry.place(x=210, y=350)
 
-submit_button= customtkinter.CTkButton(root, text = 'Submit')
+submit_button= customtkinter.CTkButton(root, text = 'Submit',command=submit_function)
 submit_button.place(x= 210, y=400)
 
 
