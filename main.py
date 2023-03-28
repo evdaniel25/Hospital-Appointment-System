@@ -13,6 +13,15 @@ root.title('Hospital Appointment System')
 root.config(background='#f8c3e0')
 
 # function defn
+def view_function():
+    cursor.execute('SELECT * FROM Appointment')
+    data = cursor.fetchall()
+    show_data = ''
+    for d in data:
+        show_data+= str(d) +'\n'
+
+    data_label = tkinter.Label(root,text=data,font=('times',18,'bold'))
+    data_label.place(x=500,y=100)
 def submit_function():
     cursor.execute('''INSERT INTO Appointment(name,age,gender,doctor) VALUES (?,?,?,?)''',(name_entry.get(),age_entry.get(),gender_entry.get(),doctor_entry.get()))
     db.commit()
@@ -54,8 +63,11 @@ doctor = ['Dr.Leena','Dr.Athira','Dr. Sayanora','Dr.Dejena','Dr.Chaithanya']
 doctor_entry= customtkinter.CTkComboBox(root,values=doctor)
 doctor_entry.place(x=210, y=350)
 
-submit_button= customtkinter.CTkButton(root, text = 'Submit',command=submit_function)
+submit_button= customtkinter.CTkButton(root, text = 'Submit',command=submit_function,font=('Pacifico',20))
 submit_button.place(x= 210, y=400)
+
+view_button= customtkinter.CTkButton(root, text = 'View',command=view_function,font=('Pacifico',20))
+view_button.place(x= 210, y=450)
 
 
 # run 
